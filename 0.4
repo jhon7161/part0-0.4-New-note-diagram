@@ -1,0 +1,81 @@
+// The user loads the page with a GET request //
+
+sequenceDiagram
+    participant User
+    participant browser
+    participant server
+
+// THE BROWSER MAKES A GET REQUEST TO THE SERVER, WHICH RESPONDS WITH AN HTML DOCUMENT //
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+// THE BROWSER MAKES A GET REQUEST TO THE SERVER, WHICH RESPONDS WITH A CSS FILE //
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+// THE BROWSER MAKES A GET REQUEST TO THE SERVER, WHICH RESPONDS WITH A JAVASCRIPT FILE //
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "f", "date": "2024-02-02T10:01:30.454Z" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+
+// THE USER CLICKS ON THE TEXTBOX, ENTERS INFORMATION, AND CLICKS SAVE //
+
+    User->>Browser: Makes a POST request to /new_note
+    Browser->>Server: POST /new_note
+
+    Server-->>Browser: Response 302 Found
+    Server-->>Browser: Location: /exampleapp/notes
+
+    Browser->>User: Redirects to /exampleapp/notes
+
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "f", "date": "2024-02-02T10:01:30.454Z" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+
+
+
+   
+
+   
+
